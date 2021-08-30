@@ -31,6 +31,17 @@ let getSystemInfo = () =>{
     });
 }
 
+let getBatteryInfo = () =>{
+    return new Promise((res,rej)=>{
+        si.battery()
+        .then(data => {
+            console.log(data);
+            res(data);
+        })
+        .catch(err => rej(err))
+    });
+}
+
 let getProcessList = () =>{
     return new Promise((res,rej)=>{
         exec('tasklist',(err,stdout,stderr)=>{
@@ -71,9 +82,11 @@ app.get('/systemDetails',async(req,res)=>{
     let userInfo = JSON.stringify(os.userInfo());
     let processes = []
     let cpu = {}
+    let battery = {}
     try {
         processes = await getProcessList();
         cpu = await getSystemInfo();
+        battery = await getBatteryInfo();
     } catch (error) {
         processes = error;
     }
@@ -85,6 +98,7 @@ app.get('/systemDetails',async(req,res)=>{
         osType : type,
         osUpTime : uptime,
         cpuDetails : cpu,
+        batteryDetails : battery,
         userInformation : userInfo,
         processes : processes,
     });

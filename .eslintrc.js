@@ -12,6 +12,7 @@ module.exports = {
       version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
+  root : true,
   extends: [
     'react-app',
     'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
@@ -19,12 +20,7 @@ module.exports = {
   ],
   plugins: ['react', 'react-hooks'],
   rules: {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      },
-    ],
+    "prettier/prettier": 0
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
   },

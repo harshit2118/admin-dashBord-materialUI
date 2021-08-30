@@ -46,6 +46,7 @@ import {
   cilUserFemale,
 } from '@coreui/icons'
 import CPUWidgets from '../components/widgets/CPUWidgets.js'
+import BatteryWidget from '../components/widgets/BatteryWidget'
 
 const OSWidgets = lazy(() => import('../components/widgets/OSWidgets.js'))
 const CPUWidgetsDropdown = lazy(() => import('../components/widgets/CPUWidgets.js'))
@@ -54,6 +55,8 @@ const WidgetsBrand = lazy(() => import('../components/widgets/WidgetsBrand.js'))
 const Dashboard = () => {
   let [app1Time = [], setApp1Time] = useState([])
   let [app2Time = [], setApp2Time] = useState([])
+  console.log(app1Time)
+  console.log(app2Time)  
   const random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
@@ -89,8 +92,11 @@ const Dashboard = () => {
   console.log(app2Time)
   let averageNum = (arr, length) => {
     let avg = arr.reduce((acc, curr) => acc + curr, 0) / length
+    
     return avg
   }
+  console.log(averageNum(app1Time,app1Time.length));
+  console.log(averageNum(app2Time,app2Time.length));
   //console.log(systemData)
   return (
     <>
@@ -116,6 +122,18 @@ const Dashboard = () => {
         </CRow>
         <CRow className="mt-3">
           <CPUWidgets systemData={systemData} />
+        </CRow>
+      </CCard>
+      <CCard className="mb-4 p-4">
+        <CRow>
+          <CCol sm={5}>
+            <h4 id="os" className="card-title mb-0">
+              Battery Details
+            </h4>
+          </CCol>
+        </CRow>
+        <CRow className="mt-3">
+          <BatteryWidget systemData={systemData} />
         </CRow>
       </CCard>
       <CCard className="mb-4 p-4">
@@ -205,7 +223,6 @@ const Dashboard = () => {
                   pointHoverBackgroundColor: getStyle('--cui-info'),
                   borderWidth: 2,
                   data: app1Time.length ? app1Time : [],
-                  fill: true,
                 },
                 {
                   label: 'VS Code',
@@ -271,7 +288,7 @@ const Dashboard = () => {
                 className="mt-2"
                 precision={1}
                 color="success"
-                value={app1Time.length ? averageNum(app1Time, app1Time.length) : 0}
+                value={app1Time.length ? Math.floor(averageNum(app1Time, app1Time.length)) : 0}
               />
             </CCol>
             <CCol sm={12} md={4} className="mb-sm-4 mb-0">
@@ -281,7 +298,7 @@ const Dashboard = () => {
                 className="mt-2"
                 precision={1}
                 color="info"
-                value={app2Time.length ? averageNum(app2Time, app2Time.length) : 0}
+                value={app2Time.length ? Math.floor(averageNum(app2Time, app2Time.length)) : 0}
               />
             </CCol>
             <CCol sm={12} md={4} className="mb-sm-4 mb-0">
