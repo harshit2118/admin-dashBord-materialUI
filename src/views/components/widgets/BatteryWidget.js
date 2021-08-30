@@ -5,7 +5,7 @@ import {
   CWidgetStatsA,
 } from '@coreui/react'
 import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine, CChartPie, CChartDoughnut } from '@coreui/react-chartjs'
+import { CChartBar, CChartLine, CChartPie, CChartDoughnut, CChart } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
 
@@ -160,17 +160,19 @@ const BatteryWidget = (props) => {
           value={<>{systemData?`Current Capacity :${systemData.batteryDetails.currentCapacity} mWh`:''}</>}
           title="Up Time"
           chart={
-            <CChartLine
+            <CChart
               className="mt-3"
               style={{ height: '70px' }}
               data={{
                 labels: ['Current Capacity', 'Maximum Capacity', 'Designed Capacity'],
                 datasets: [
                   {
+                    type: 'bar',
                     label: 'Battery Capacity',
                     backgroundColor: 'rgba(255,255,255,.2)',
                     borderColor: 'rgba(255,255,255,.55)',
                     data: systemData?[systemData.batteryDetails.currentCapacity,systemData.batteryDetails.maxCapacity,systemData.batteryDetails.designedCapacity]:[],
+                    barPercentage: .8
                   },
                 ],
               }}
