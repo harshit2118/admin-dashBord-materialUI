@@ -61,6 +61,8 @@ const Dashboard = () => {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
   let [systemData = {}, setSystemData] = useState(null)
+  
+
   useEffect(async () => {
     let data2 = [
       random(0, 23),
@@ -84,9 +86,12 @@ const Dashboard = () => {
       random(0, 23),
     ]
     setApp1Time(data1)
-    let response = await http.get('/systemDetails')
-    let { data } = response
-    setSystemData(data)
+    setInterval(async()=>{
+      let response = await http.get('/systemDetails');
+      let { data } = response;
+      setSystemData(data);
+    },5000);
+    
   }, [])
   console.log(app1Time)
   console.log(app2Time)

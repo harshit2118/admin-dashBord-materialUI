@@ -41,9 +41,11 @@ const Widgets = () => {
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
   let [systemData = {}, setSystemData] = useState(null)
   useEffect(async () => {
-    let response = await http.get('/systemDetails')
-    let { data } = response
-    setSystemData(data)
+    setInterval(async()=>{
+      let response = await http.get('/systemDetails');
+      let { data } = response;
+      setSystemData(data);
+    },5000);
   }, [])
   return (
     <CCard>

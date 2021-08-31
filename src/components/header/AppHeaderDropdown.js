@@ -29,9 +29,11 @@ import avatar8 from './../../assets/images/avatars/10.jpg'
 const AppHeaderDropdown = () => {
   let [systemData={},setSystemData] = useState(null);
   useEffect(async () => {
-    let response = await http.get('/systemDetails')
-    let { data } = response
-    setSystemData(data)
+    setInterval(async()=>{
+      let response = await http.get('/systemDetails');
+      let { data } = response;
+      setSystemData(data);
+    },5000);
   }, [])
   console.log(systemData);
   return (
